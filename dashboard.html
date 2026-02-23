@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Ultimate Freelancer Dashboard</title>
+
+<!-- Chart Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background: linear-gradient(135deg,#020617,#0b3d91);
+color:white;
+display:flex;
+justify-content:center;
+padding:50px;
+box-sizing:border-box;
+font-size:22px;
+}
+
+/* Container */
+
+.container{
+background: rgba(255,255,255,0.08);
+backdrop-filter: blur(16px);
+padding:60px;
+border-radius:30px;
+width:1100px;
+max-width:98%;
+}
+
+/* Title */
+
+h2{
+text-align:center;
+color:#4fc3ff;
+font-size:48px;
+margin-bottom:40px;
+}
+
+h3{
+font-size:30px;
+}
+
+/* Grid Layout */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:35px;
+margin-top:40px;
+}
+
+/* Cards */
+
+.card{
+background: rgba(0,0,0,0.35);
+padding:45px;
+border-radius:22px;
+min-height:280px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+}
+
+/* Buttons */
+
+button{
+padding:22px;
+width:100%;
+border:none;
+border-radius:16px;
+background:#1e88e5;
+color:white;
+cursor:pointer;
+margin-top:40px;
+font-size:24px;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{
+background:#0d47a0;
+transform:scale(1.03);
+}
+
+/* Images */
+
+img{
+width:100%;
+border-radius:16px;
+}
+
+p, li{
+font-size:22px;
+line-height:1.8;
+}
+
+/* Gallery Layout */
+.gallery{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:25px;
+margin-top:40px;
+margin-bottom:70px;
+}
+
+/* Gallery Images */
+.gallery img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:18px;
+transition:0.4s ease;
+box-shadow:0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* Hover Effect */
+.gallery img:hover{
+transform:scale(1.08);
+box-shadow:0 15px 35px rgba(79,195,255,0.6);
+}
+
+/* Mobile Responsive */
+@media(max-width:900px){
+.gallery{
+grid-template-columns:1fr 1fr;
+}
+}
+
+@media(max-width:600px){
+.gallery{
+grid-template-columns:1fr;
+}
+}
+
+/* Profile Card Styling */
+
+.profile-card{
+padding:35px;
+}
+
+.profile-top{
+display:flex;
+align-items:center;
+gap:20px;
+}
+
+.avatar{
+width:70px;
+height:70px;
+background:linear-gradient(135deg,#4fc3ff,#1e88e5);
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-size:32px;
+}
+
+.skill-text{
+font-size:22px;
+margin-top:5px;
+color:#4fc3ff;
+}
+
+.profile-stats{
+display:flex;
+justify-content:space-between;
+margin-top:30px;
+background:rgba(255,255,255,0.05);
+padding:20px;
+border-radius:15px;
+}
+
+.profile-stats span{
+font-size:16px;
+opacity:0.7;
+}
+
+.profile-stats p{
+font-size:20px;
+margin:5px 0 0 0;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🚀 Ultimate Freelancer Dashboard</h2>
+
+<hr style="border:1px solid rgba(255,255,255,0.1);margin:25px 0">
+
+<h2>🌟 Freelancing Motivation Gallery</h2>
+
+<div class="gallery">
+
+<img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=400">
+<img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400">
+<img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=400">
+
+</div>
+
+<div class="card section-space">
+<h3>💡 Why Choose Freelancing?</h3>
+
+<ul style="text-align:left;line-height:1.8">
+<li>✨ Work from anywhere</li>
+<li>💰 Income depends on your skill</li>
+<li>🚀 Grow your personal brand</li>
+<li>📈 Unlimited earning potential</li>
+</ul>
+</div>
+
+<div class="grid section-space">
+
+<div class="card profile-card">
+
+<div class="profile-top">
+<div class="avatar">👤</div>
+<div>
+<h3>Profile</h3>
+<p class="skill-text" id="user"></p>
+</div>
+</div>
+
+<div class="profile-stats">
+<div>
+<span>Level</span>
+<p id="level"></p>
+</div>
+
+<div>
+<span>Status</span>
+<p>Active</p>
+</div>
+</div>
+
+</div>
+
+<div class="card">
+<h3>🔥 Market Demand Chart</h3>
+<canvas id="chart"></canvas>
+</div>
+
+</div>
+
+<button onclick="goBack()">Calculate Again</button>
+<button onclick="goRoadmap()">📚 Freelancer Roadmap</button>
+
+</div>
+
+<script>
+/* Show skill */
+document.getElementById("user").innerHTML=
+"Skill : "+localStorage.getItem("skill");
+
+let skill = localStorage.getItem("skill");
+
+let levelText = "Beginner";
+
+if(skill && skill.length > 5){
+levelText = "Intermediate";
+}
+if(skill && skill.length > 8){
+levelText = "Expert";
+}
+
+document.getElementById("level").innerHTML = levelText;
+
+/* Chart */
+let ctx=document.getElementById("chart");
+
+new Chart(ctx,{
+type:"bar",
+data:{
+labels:["Web Dev","AI","Design","Writing","Marketing"],
+datasets:[{
+label:"Demand Score",
+data:[90,85,70,60,75]
+}]
+}
+});
+
+/* Navigation */
+function goBack(){
+window.location.href="index.html";
+}
+
+function goRoadmap(){
+window.location.href="roadmap.html";
+}
+</script>
+
+</body>
+</html>

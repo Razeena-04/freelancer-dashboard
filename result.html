@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Freelance Income Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background: linear-gradient(135deg,#020617,#0b3d91);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+padding:50px;
+box-sizing:border-box;
+font-size:22px;
+}
+
+.card{
+background: rgba(255,255,255,0.08);
+backdrop-filter: blur(16px);
+padding:60px;
+border-radius:30px;
+width:1000px;
+max-width:95%;
+text-align:center;
+}
+
+h2{
+font-size:48px;
+margin-bottom:30px;
+color:#4fc3ff;
+}
+
+.stat-grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:25px;
+margin-top:30px;
+}
+
+.stat{
+background: rgba(0,0,0,0.35);
+padding:30px;
+border-radius:20px;
+}
+
+.stat h3{
+font-size:26px;
+}
+
+.stat p{
+font-size:30px;
+color:#4fc3ff;
+}
+
+.badge{
+margin-top:25px;
+font-size:26px;
+font-weight:bold;
+color:gold;
+}
+
+canvas{
+margin-top:40px;
+}
+
+button{
+padding:20px;
+margin-top:35px;
+width:100%;
+border:none;
+border-radius:16px;
+background:#1e88e5;
+color:white;
+cursor:pointer;
+font-size:24px;
+font-weight:bold;
+transition:0.3s;
+}
+
+button:hover{
+background:#0d47a0;
+transform:scale(1.03);
+}
+
+@media(max-width:900px){
+.stat-grid{
+grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<h2>💰 Freelance Income Dashboard</h2>
+
+<p id="skill"></p>
+
+<div class="stat-grid">
+
+<div class="stat">
+<h3>📅 Daily Income</h3>
+<p id="daily"></p>
+</div>
+
+<div class="stat">
+<h3>📆 Monthly Income</h3>
+<p id="monthly"></p>
+</div>
+
+<div class="stat">
+<h3>📊 Yearly Income</h3>
+<p id="yearly"></p>
+</div>
+
+</div>
+
+<div class="stat-grid">
+
+<div class="stat">
+<h3>🏦 Savings (20%)</h3>
+<p id="savings"></p>
+</div>
+
+<div class="stat">
+<h3>🧾 Tax (10%)</h3>
+<p id="tax"></p>
+</div>
+
+<div class="stat">
+<h3>📈 After Tax</h3>
+<p id="afterTax"></p>
+</div>
+
+</div>
+
+<div class="badge" id="badge"></div>
+
+<canvas id="incomeChart"></canvas>
+
+<button onclick="goDashboard()">Go Dashboard</button>
+
+</div>
+
+<script>
+
+let skill=localStorage.getItem("skill");
+let min=Number(localStorage.getItem("min"));
+let max=Number(localStorage.getItem("max"));
+
+let avg=(min+max)/2;
+
+let daily=Math.round(avg);
+let monthly=Math.round(avg*22);
+let yearly=Math.round(monthly*12);
+
+let savings=Math.round(yearly*0.20);
+let tax=Math.round(yearly*0.10);
+let afterTax=yearly-tax;
+
+document.getElementById("skill").innerHTML="Skill : "+skill;
+document.getElementById("daily").innerHTML="₹ "+daily;
+document.getElementById("monthly").innerHTML="₹ "+monthly;
+document.getElementById("yearly").innerHTML="₹ "+yearly;
+document.getElementById("savings").innerHTML="₹ "+savings;
+document.getElementById("tax").innerHTML="₹ "+tax;
+document.getElementById("afterTax").innerHTML="₹ "+afterTax;
+
+/* Income Level Badge */
+
+if(yearly < 300000){
+document.getElementById("badge").innerHTML="🚀 Beginner Freelancer";
+}
+else if(yearly < 800000){
+document.getElementById("badge").innerHTML="🔥 Growing Freelancer";
+}
+else{
+document.getElementById("badge").innerHTML="💎 Pro Freelancer";
+}
+
+/* Chart */
+
+let ctx=document.getElementById("incomeChart");
+
+new Chart(ctx,{
+type:"line",
+data:{
+labels:["Daily","Monthly","Yearly"],
+datasets:[{
+label:"Income Growth",
+data:[daily,monthly,yearly]
+}]
+}
+});
+
+function goDashboard(){
+window.location.href="dashboard.html";
+}
+
+</script>
+
+</body>
+</html>
