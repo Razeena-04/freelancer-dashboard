@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Freelancer Skill Roadmap</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background: linear-gradient(135deg,#020617,#0b3d91);
+    color:white;
+    display:flex;
+    justify-content:center;
+    padding:50px;
+    min-height:100vh;
+    box-sizing:border-box;
+    font-size:22px;
+}
+
+/* Container Box */
+
+.container{
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(16px);
+    padding:60px;
+    border-radius:30px;
+    width:900px;
+    max-width:95%;
+    min-height:550px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+/* Heading */
+
+h2{
+    text-align:center;
+    color:#4fc3ff;
+    font-size:48px;
+    margin-bottom:40px;
+}
+
+h3{
+    font-size:30px;
+}
+
+/* Card Box */
+
+.card{
+    background: rgba(0,0,0,0.35);
+    padding:40px;
+    border-radius:22px;
+    margin-top:35px;
+}
+
+/* List Text */
+
+ul{
+    line-height:2;
+    font-size:22px;
+}
+
+/* Button */
+
+button{
+    padding:22px;
+    width:100%;
+    border:none;
+    border-radius:16px;
+    background:#1e88e5;
+    color:white;
+    cursor:pointer;
+    margin-top:40px;
+    font-size:24px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#0d47a0;
+    transform:scale(1.03);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>🚀 Freelancer Skill Growth Roadmap</h2>
+
+<div class="card">
+<h3>📚 Daily Practice Checklist</h3>
+
+<ul>
+<li>✔ Solve 1 coding / skill problem</li>
+<li>✔ Improve portfolio project</li>
+<li>✔ Learn new concept</li>
+<li>✔ Practice real world task</li>
+</ul>
+</div>
+
+<div class="card">
+<h3>🔥 Recommended Skills To Learn</h3>
+
+<ul>
+<li>Web Development</li>
+<li>AI Basics</li>
+<li>Data Visualization</li>
+<li>Portfolio Building</li>
+<li>Problem Solving</li>
+</ul>
+</div>
+
+<button onclick="goBack()">⬅ Back to Dashboard</button>
+
+</div>
+
+<script>
+function goBack(){
+window.location.href="dashboard.html";
+}
+</script>
+
+</body>
+</html>
