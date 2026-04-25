@@ -80,8 +80,6 @@ This project was created to:
 
 ## 👩‍💻 Author
 
-**Razeena**
-
+**Razeena**  
 B.Tech Artificial Intelligence and Data Science
-
 
